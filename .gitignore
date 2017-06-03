@@ -1,3 +1,8 @@
+# AWS:
+java/*.log
+java/*.pem
+java/target/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
