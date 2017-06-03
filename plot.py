@@ -9,8 +9,9 @@ from pythonosc import osc_server
 # http://developer.choosemuse.com/research-tools-example/grabbing-data-from-museio-a-few-simple-examples-of-muse-osc-servers#python
 
 import livegraph
+import livehist
 
-def cleanSubplots(r=2, c=2, pad=0.05):
+def cleanSubplots(r=2, c=4, pad=0.05):
     f = plt.figure()
     ax = []
     at = 1
@@ -18,7 +19,7 @@ def cleanSubplots(r=2, c=2, pad=0.05):
         row = []
         for j in range(c):
             axHere = f.add_subplot(r, c, at)
-            axHere.get_xaxis().set_visible(False)
+            # axHere.get_xaxis().set_visible(False)
             # axHere.get_yaxis().set_visible(False)
             row.append(axHere)
             at = at + 1
@@ -38,9 +39,9 @@ lastT = None
 def process(g, t, b):
     for i in range(4):
         r = i // 2
-        c = i % 2
-        plots[r][c].setGood(g[i] == 1)
-        plots[r][c].add(t[i]/b[i])
+        for c in range(2 * (i % 2), 2 * (i % 2 + 1)):
+            plots[r][c].setGood(g[i] == 1)
+            plots[r][c].add(t[i]/b[i])
     plt.pause(0.001)
     # TODO: Histogram mode: plot same but histogram of non-buffered version.
 
@@ -94,9 +95,11 @@ if __name__ == "__main__":
         plotRow = []
         for j in range(len(axes[i])):
             # TODO - titles for locations.
-            plotRow.append(livegraph.LiveGraph(axes[i][j]))
+            if j % 2 == 0:
+                plotRow.append(livegraph.LiveGraph(axes[i][j]))
+            else:
+                plotRow.append(livehist.LiveHist(axes[i][j]))
         plots.append(plotRow)
-
 
     # server = osc_server.ThreadingOSCUDPServer(
     server = osc_server.BlockingOSCUDPServer(

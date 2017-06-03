@@ -33,7 +33,7 @@ class LiveGraph:
         """
         Adds the most recent y value onto the graph, and scrolls it into view.
         """
-        if self.connected:
+        if self.isGood:
             self.yValues.append(y)
         else:
             self.yValues.append(0.)
