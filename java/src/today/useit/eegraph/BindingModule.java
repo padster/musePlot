@@ -21,12 +21,11 @@ import java.util.Map;
  */
 public class BindingModule extends BaseBindingModule {
   @Override protected void bindPageHandlers() {
-    // HACK
+    bindPageHandler(StaticHandler.STATIC_DIRECTORY + "**", StaticHandler.class);
     bindPageHandler("/", PageHandler.class);
   }
 
   protected void bindDataHandlers() {
-    // TODO
-    // bindDataHandler("/foo", FooHandler.class);
+    bindDataHandler("/ping", PingHandler.class);
   }
 }

@@ -14,11 +14,8 @@ import java.util.List;
 /** Binds JSON parsers for all the models required. */
 public class ParserModule extends AbstractModule {
   @Override protected void configure() {
-    // TODO
-    /*
-    bind(new Key<JsonParser<Settings>>(){})
-      .toInstance(new JsonParserImpl<Settings>(
-        getProvider(Gson.class), new TypeToken<Settings>(){}.getType()));
-    */
+    bind(new Key<JsonParser<PingPayload>>(){})
+      .toInstance(new JsonParserImpl<PingPayload>(
+        getProvider(Gson.class), new TypeToken<PingPayload>(){}.getType()));
   }
 }

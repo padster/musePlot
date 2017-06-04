@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Template</title>
+  <title>Live EEG</title>
+  <link rel="stylesheet" href="static/style.css"></link>
+  <script src="static/jquery-3.2.1.min.js"></script>
+  <script src="static/code.js"></script>
 </head>
-<body>
-  <h2> Template working! </h2>
+<body onload="main()">
+  <h2> Live EEG: </h2>
+  <div id="livegraph"></div>
 </body>
 </html>

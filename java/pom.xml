@@ -82,7 +82,7 @@
               <outputDirectory>${basedir}/target/static</outputDirectory>
               <resources>
                 <resource>
-                  <directory>src/static</directory>
+                  <directory>static</directory>
                 </resource>
               </resources>
             </configuration>
