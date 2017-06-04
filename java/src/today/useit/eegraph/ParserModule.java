@@ -17,5 +17,9 @@ public class ParserModule extends AbstractModule {
     bind(new Key<JsonParser<PingPayload>>(){})
       .toInstance(new JsonParserImpl<PingPayload>(
         getProvider(Gson.class), new TypeToken<PingPayload>(){}.getType()));
+
+    bind(new Key<JsonParser<EEGBundleIn>>(){})
+      .toInstance(new JsonParserImpl<EEGBundleIn>(
+        getProvider(Gson.class), new TypeToken<EEGBundleIn>(){}.getType()));
   }
 }

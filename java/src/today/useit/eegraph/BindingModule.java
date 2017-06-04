@@ -27,5 +27,6 @@ public class BindingModule extends BaseBindingModule {
 
   protected void bindDataHandlers() {
     bindDataHandler("/ping", PingHandler.class);
+    bindDataHandler("/recv", DataInHandler.class);
   }
 }
