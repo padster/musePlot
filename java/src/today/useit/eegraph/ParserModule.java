@@ -14,12 +14,16 @@ import java.util.List;
 /** Binds JSON parsers for all the models required. */
 public class ParserModule extends AbstractModule {
   @Override protected void configure() {
-    bind(new Key<JsonParser<PingPayload>>(){})
-      .toInstance(new JsonParserImpl<PingPayload>(
-        getProvider(Gson.class), new TypeToken<PingPayload>(){}.getType()));
+    // bind(new Key<JsonParser<PingPayload>>(){})
+    //   .toInstance(new JsonParserImpl<PingPayload>(
+    //     getProvider(Gson.class), new TypeToken<PingPayload>(){}.getType()));
 
     bind(new Key<JsonParser<EEGBundleIn>>(){})
       .toInstance(new JsonParserImpl<EEGBundleIn>(
         getProvider(Gson.class), new TypeToken<EEGBundleIn>(){}.getType()));
+
+    bind(new Key<JsonParser<List<EEGBundleIn>>>(){})
+      .toInstance(new JsonParserImpl<List<EEGBundleIn>>(
+        getProvider(Gson.class), new TypeToken<List<EEGBundleIn>>(){}.getType()));
   }
 }

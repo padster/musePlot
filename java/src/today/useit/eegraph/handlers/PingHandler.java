@@ -1,6 +1,7 @@
 package today.useit.eegraph.handlers;
 
-import today.useit.eegraph.model.PingPayload;
+import today.useit.eegraph.DataBuffer;
+import today.useit.eegraph.model.EEGBundleIn;
 
 import com.github.padster.guiceserver.handlers.Handler;
 import com.github.padster.guiceserver.handlers.RouteHandlerResponses.JsonResponse;
@@ -18,10 +19,12 @@ import java.util.stream.Collectors;
  * Serve the base HTML
  */
 public class PingHandler implements Handler {
-  private final JsonParser<PingPayload> parser;
+  private final DataBuffer buffer;
+  private final JsonParser<List<EEGBundleIn>> parser;
 
   @Inject
-  PingHandler(JsonParser<PingPayload> parser) {
+  PingHandler(DataBuffer buffer, JsonParser<List<EEGBundleIn>> parser) {
+    this.buffer = buffer;
     this.parser = parser;
   }
 
@@ -42,15 +45,12 @@ public class PingHandler implements Handler {
     }
 
     // HACK - actually look up and manage in local state.
-    int v = -1;
-    if (query.containsKey("v")) {
-      v = Integer.parseInt(query.get("v"));
+    if (!query.containsKey("msAt")) {
+      throw new IllegalArgumentException("Need a timestamp");
     }
-    System.out.println("Version = " + v);
-
-    PingPayload payload = new PingPayload(v + 10);
-    payload.append(-1.1);
-    payload.append(1.3);
-    return new JsonResponse(parser.toJson(payload));
+    long msAt = Long.parseLong(query.get("msAt"));
+    System.out.println("Version = " + msAt);
+    List<EEGBundleIn> result = this.buffer.getAfterAndPrune(msAt);
+    return new JsonResponse(parser.toJson(result));
   }
 }

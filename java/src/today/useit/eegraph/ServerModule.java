@@ -30,6 +30,7 @@ public class ServerModule extends AbstractModule {
 
   @Override protected void configure() {
     bind(Integer.class).annotatedWith(ServerPort.class).toInstance(this.port);
+    bind(DataBuffer.class).toInstance(new DataBuffer());
   }
 
   @Provides @Singleton
